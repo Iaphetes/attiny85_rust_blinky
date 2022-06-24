@@ -21,8 +21,5 @@ $ build -Z build-std=core --target ./avr-unknown-gnu-attiny85.json --release
 
 ## Current progress
 
-I'm pretty sure that it sets up the Watchdog Interrupt and jumps to it, but it doesn't switch back on.
+The WDT is working and a timer with a static sleep time is implemented
 
-My current theory is that it segfaults or has some other issue returning from the interrupt.
-
-I don't have a multimeter at the moment to check the voltages on the pins.
