@@ -4,6 +4,13 @@
 
 ## Requirements
 
+The gcc compiler for AVR and arduino-avr-core libraries platforms.
+Arch linux
+```shell
+$ pacman -S avr-gcc arduino-avr-core
+```
+avr-gcc
+
 The exact Rust nightly toolchain described in [rust-toolchain.toml](rust-toolchain.toml)
 
 It should automatically download when running the build command for the first time.
