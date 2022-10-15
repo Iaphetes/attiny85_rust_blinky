@@ -13,7 +13,7 @@ extern crate avr_device;
 use core::panic::PanicInfo;
 use avr_device::attiny85::Peripherals;
 
-use sleep::{wdt_sleep, WDTSleepDur};
+use sleep::{wdt_sleep_s, WDTSleepDur};
 use led::{led_01_setup, led_01_set};
 use board::board_setup;
 
@@ -25,12 +25,12 @@ fn main() -> ! {
     // set port 1 (LED) as output
     led_01_setup();
     // set port 1 (LED) on
-    portb.portb.write(|w| w.pb1().set_bit());
 
+    led_01_set(true);
     loop {
-        wdt_sleep(WDTSleepDur::Sleep1S);
+        wdt_sleep_s(1);
         led_01_set(false);
-        wdt_sleep(WDTSleepDur::Sleep2S);
+        wdt_sleep_s(60);
         led_01_set(true);
     }
 }

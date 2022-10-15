@@ -38,7 +38,7 @@ unsafe fn WDT() {
 
 
 /// Uses the Attiny85s internal oscilator which runs at 128 kHz
-pub(crate) fn wdt_sleep(_dur : WDTSleepDur){
+fn _wdt_sleep(_dur : WDTSleepDur){
     let peripherals = unsafe { Peripherals::steal() };
     peripherals.CPU.mcusr.write(|w|w.wdrf().clear_bit());
     let prescaler_vals : WDTPrescalerVals = WDTPrescalerVals::from_wdt_sleep_dur(_dur);
@@ -60,5 +60,24 @@ pub(crate) fn wdt_sleep(_dur : WDTSleepDur){
     );
     unsafe {
         llvm_asm!("sleep");
+    }
+}
+
+pub(crate) fn wdt_sleep_s(mut dur : u32){
+    while dur >= 8{
+        _wdt_sleep(WDTSleepDur::Sleep8S);
+        dur -= 8;
+    }
+    if dur >= 4{
+        _wdt_sleep(WDTSleepDur::Sleep4S);
+        dur -= 4;
+    }
+    if dur >= 2{
+        _wdt_sleep(WDTSleepDur::Sleep2S);
+        dur -= 2;
+    }
+    if dur == 1{
+        _wdt_sleep(WDTSleepDur::Sleep1S);
+        dur -= 1;
     }
 }
