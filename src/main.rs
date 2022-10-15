@@ -28,9 +28,9 @@ fn main() -> ! {
     portb.portb.write(|w| w.pb1().set_bit());
 
     loop {
-        wdt_sleep(WDTSleepDur::Sleep8S);
+        wdt_sleep(WDTSleepDur::Sleep1S);
         led_01_set(false);
-        wdt_sleep(WDTSleepDur::Sleep8S);
+        wdt_sleep(WDTSleepDur::Sleep2S);
         led_01_set(true);
     }
 }
